@@ -7,16 +7,12 @@
 
 # use extended color palette if available
 if (( terminfo[colors] >= 256 )); then
-  if (( ! ${+USER_COLOR} )) typeset -g USER_COLOR=135
-  if (( ! ${+HOST_COLOR} )) typeset -g HOST_COLOR=166
   if (( ! ${+PWD_COLOR} )) typeset -g PWD_COLOR=118
   if (( ! ${+BRANCH_COLOR} )) typeset -g BRANCH_COLOR=81
   if (( ! ${+UNINDEXED_COLOR} )) typeset -g UNINDEXED_COLOR=166
   if (( ! ${+INDEXED_COLOR} )) typeset -g INDEXED_COLOR=118
   if (( ! ${+UNTRACKED_COLOR} )) typeset -g UNTRACKED_COLOR=161
 else
-  if (( ! ${+USER_COLOR} )) typeset -g USER_COLOR=magenta
-  if (( ! ${+HOST_COLOR} )) typeset -g HOST_COLOR=yellow
   if (( ! ${+PWD_COLOR} )) typeset -g PWD_COLOR=green
   if (( ! ${+BRANCH_COLOR} )) typeset -g BRANCH_COLOR=cyan
   if (( ! ${+UNINDEXED_COLOR} )) typeset -g UNINDEXED_COLOR=yellow
@@ -26,7 +22,6 @@ fi
 if (( ! ${+UNINDEXED_IND} )) typeset -g UNINDEXED_IND=●
 if (( ! ${+INDEXED_IND} )) typeset -g INDEXED_IND=●
 if (( ! ${+UNTRACKED_IND} )) typeset -g UNTRACKED_IND=●
-typeset -g VIRTUAL_ENV_DISABLE_PROMPT=1
 
 setopt nopromptbang prompt{cr,percent,sp,subst}
 
@@ -49,6 +44,6 @@ if (( ${+functions[git-info]} )); then
 fi
 
 PS1='
-%F{${USER_COLOR}}%n%f at %F{${HOST_COLOR}}%m%f in %F{${PWD_COLOR}}%~%f${(e)git_info[prompt]}${VIRTUAL_ENV:+" (%F{blue}${VIRTUAL_ENV:t}%f)"}
+%(?:%F{green}:%F{red})➜ %F{${PWD_COLOR}}%~%f${(e)git_info[prompt]}
 %(!.#.$) '
 unset RPS1
